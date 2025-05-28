@@ -2,19 +2,50 @@ namespace CashierApplication
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new frmPurchaseDiscountedItem());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new frmLoginAccount()); 
         }
     }
 }
+
+namespace UserAccountNamespace
+{
+    public abstract class UserAccount
+    {
+        protected string username;
+        protected string password;
+        protected string full_name;
+        protected string department;
+
+        public UserAccount(string name, string dept, string uname, string pwd)
+        {
+            full_name = name;
+            department = dept;
+            username = uname;
+            password = pwd;
+        }
+
+        public abstract bool validateLogin(string uname, string pwd);
+    }
+
+    public class Cashier : UserAccount
+    {
+        public Cashier(string name, string dept, string uname, string pwd)
+            : base(name, dept, uname, pwd) { }
+
+        public override bool validateLogin(string uname, string pwd)
+        {
+            return username.Equals(uname) && password.Equals(pwd);
+        }
+
+        public string WelcomeMessage => $"Welcome {full_name} of {department}";
+    }
+}
+
 namespace ItemNamespace
 {
     public abstract class Item

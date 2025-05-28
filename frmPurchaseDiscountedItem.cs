@@ -49,5 +49,27 @@ namespace CashierApplication
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MenuStrip menu = new MenuStrip();
+            ToolStripMenuItem fileMenu = new ToolStripMenuItem("File");
+
+            ToolStripMenuItem logoutItem = new ToolStripMenuItem("Logout");
+            logoutItem.Click += (s, e) => {
+                this.Close();
+                new frmLoginAccount().Show();
+            };
+
+            ToolStripMenuItem exitItem = new ToolStripMenuItem("Exit");
+            exitItem.Click += (s, e) => Application.Exit();
+
+            fileMenu.DropDownItems.Add(logoutItem);
+            fileMenu.DropDownItems.Add(exitItem);
+            menu.Items.Add(fileMenu);
+
+            this.MainMenuStrip = menu;
+            this.Controls.Add(menu);
+        }
     }
 }
